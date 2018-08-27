@@ -1,0 +1,265 @@
+@font-face {
+	font-family: "Francois One";
+	src: "https://fonts.googleapis.com/css?family=Francois+One";
+	font-weight: normal;
+	font-style: normal;
+}
+
+.home-body {
+       text-align: center;
+       font-family: 'Francois One', sans-serif;
+       color: darkorange;
+}
+
+.valid-error {
+	color: red;
+	display: inline;
+	position: absolute;
+	padding-left: 10;
+	font-size: 24;
+}
+
+.form_input {
+	display: inline-block;
+	position: relative;
+}
+
+.form-group {
+	margin-bottom: 20;
+}
+
+#logo {
+       font-size: 60px; 
+       color: darkorange;
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+} 
+
+.tabcontent {
+    animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+/* Go from zero to full opacity */
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+} 
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: darkorange;
+    color: black;
+    text-align: center;
+}
+
+.text {
+	font-family: 'Francois One', sans-serif;
+	font-size: 20;
+	font-weight: bolder;
+}
+
+.header {
+	font-family: 'Francois One', sans-serif;
+	color: darkorange;
+}
+
+.textbox {
+	font-family: 'Francois One', sans-serif;
+	font-size: 20;
+	font-weight: bolder;
+	width: 350px;
+	height: 50px;
+	padding-left: 20;
+}
+
+.suffix {
+	font-family: 'Francois One', sans-serif;
+	font-size: 20;
+	font-weight: bolder;
+	width: 110px;
+	height: 50px;
+	padding-left: 20;
+}
+
+.currency {
+	font-family: 'Francois One', sans-serif;
+	font-size: 20;
+	font-weight: bolder;
+	height: 50px;
+	width:120px;
+	padding-left: 20;
+	
+}
+
+.checkbox {
+	transform: scale(1.5);
+}
+
+.info-bank {
+	display: none;
+}
+
+.info-check {
+	border: solid;
+	border-width: 1px;
+	padding: 10 0 10 0;
+	width: 500;
+	display: none;
+}
+
+.amtWarning {
+	display: none;
+}
+
+.option {
+	font-family: 'Francois One', sans-serif;
+	font-size: 20;
+	font-weight: bolder;
+}
+
+label {
+	font-family: 'Francois One', sans-serif;
+	font-size: 20;
+	font-weight: bolder;
+}
+
+.error {
+    color: red;
+}
+
+div.ssn {
+	display: inline-block;
+	border-style: solid;
+	border-width: 1;
+	margin-bottom: 20;
+	padding: 0 20 0 20;
+	height: 50px;
+}
+
+input.ssn {
+	font-family: 'Francois One', sans-serif;
+	font-size: 20;
+	font-weight: bolder;
+	height: 45px;
+	text-align: center;
+	border: none;
+}
+
+a:link {
+	font-family: 'Francois One', sans-serif;
+	color: #4d93fd;
+	text-decoration: none;
+}
+a:visited {
+	font-family: 'Francois One', sans-serif;
+	color: #4d93fd;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+body {
+	background-color: white;
+}
+
+.btn-submit {
+	background: #ff6600;
+}
+
+.btn-back {
+	color: white;
+	background: #0099ff;
+}
+
+
+.btn:hover,
+.btn:focus {
+	 box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.btn:active {
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.btn:disabled,
+.btn:disabled:hover {
+	background-color: grey;
+	background-image: none;
+	box-shadow: none;
+	text-shadow: none;
+}
+
+.btn {
+	border: none;
+	padding: 10px 30px 10px 30px;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	font-weight: bold;
+	border-radius: 3px;
+	box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+	transition: box-shadow 0.2s;
+	cursor: pointer;
+	box-shadow: 0px 1px 4px -2px #333;
+	margin: 4px 4px 4px 4px;
+}
+
+/* hidden form */
+#nominee-section {
+	display: none;
+}
+
+.error-page {
+	padding-top: 125px;
+	text-align: center;
+	background-image: url("/external/tenor.gif");
+    font-family: 'Francois One', sans-serif;
+	text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+	font-size: 1rem;
+	color: #e5480e;
+	min-height: 100%;
+	min-width: 1024px;
+	width: 100%;
+	height: auto;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
