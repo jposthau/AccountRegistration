@@ -1,10 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html: charset=UTF-8" />
-<title>Open an Online Bank Account Today</title>
-<link rel= "stylesheet" href="/css/styles.css" type="text/css">
-<link rel="icon" type="image/jpg" href="/external/icon.png">
-<script type="text/javascript" src="/js/main.js"></script>
+	<meta http-equiv="Content-Type" content="text/html: charset=UTF-8" />
+	<title>Open an Online Bank Account Today</title>
+	<link rel= "stylesheet" href="/css/styles.css" type="text/css">
+	<link rel="icon" type="image/jpg" href="/external/icon.png">
+	<script type="text/javascript" src="/js/main.js"></script>
 </head>             
        
        <span id = "logo" class="header">
@@ -14,26 +14,6 @@
        <body class="home-body">
              <p class="text">Everything you want from a bank, without ever setting foot in one.</p>
              
-             <div class="tab">
-             <button class="tablinks" onclick="openCity(event, 'Savings Account')">Savings Account</button>
-             <button class="tablinks" onclick="openCity(event, 'Checking Account')">Checking Account</button>
-             <button class="tablinks" onclick="openCity(event, 'Money Market')">Money Market</button>
-      </div>
-             
-             <div id="Savings Account" class="tabcontent">
-             <h3>Savings Account</h3>
-             <p>Saving smarter means earning more.</p>
-      </div>
-
-      <div id="Checking Account" class="tabcontent">
-             <h3>Checking Account</h3>
-             <p>Say hello to a more rewarding checking experience.</p> 
-       </div>
-
-      <div id="Money Market" class="tabcontent">
-             <h3>Money Market</h3>
-             <p>Get the best of both worlds - flexibility and high yields.</p>
-      </div> 
              
              <br>
              <br>
@@ -42,9 +22,7 @@
              <br>
        </body>
        
-       <form action="/personalDetails">
-             <input type="submit" value="Create a New Account" class="btn btn-submit" />
-       </form>
+       <a href="/verification"><input type="button" value="Create Account" class="btn btn-submit" /></a>
        
        
        <div class = "footer">

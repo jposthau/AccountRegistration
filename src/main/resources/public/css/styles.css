@@ -100,6 +100,12 @@
 	color: darkorange;
 }
 
+.header2 {
+	font-family: 'Francois One', sans-serif;
+	color: darkorange;
+	font-size: 16;
+}
+
 .textbox {
 	font-family: 'Francois One', sans-serif;
 	font-size: 20;
