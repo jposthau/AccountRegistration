@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div>
-        <form style="margin-left: 100; margin-top: 50;" action="#" name="verify" method="post">
+        <form style="margin-left: 100; margin-top: 50;" action="" name="verifyForm" id="verifyForm" method="post">
         	<h1 class="header2" style="text-align: left;">Enter Account Information</h1>
         	<hr>
         	<div class="form-group">
@@ -45,9 +45,17 @@
 				<input id="motherMName" class="textbox" type="text" style="margin-left: 96" />
 			</div>
 			<hr>
-			<input class="btn btn-submit" type="submit" value="Continue" />
+			<input class="btn btn-submit" onclick="submitForm()" type="submit" value="Continue" />
 			<a class="link" onclick="return confirm('Are you sure you would like to cancel? All data will be lost.')" href="/">Cancel</a>
-        </form>        
+        </form>      
+        
+        <script type="text/javascript">
+        	function submitForm() {
+        		var url = "http://localhost:8082/verify/account/" + document.getElementById("accNum").value;
+        		document.getElementById("verifyForm").setAttribute("action", url);
+        	}
+        </script>
+          
     </div>
 </body>
 </html>
