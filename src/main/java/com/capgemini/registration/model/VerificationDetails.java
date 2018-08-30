@@ -2,21 +2,24 @@ package com.capgemini.registration.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class VerificationDetails {
 	
-	private long accNum;
+	private String accNum;
 	
 	private String maiden;
 	
 	private String ssn;
 	
+	@DateTimeFormat(pattern ="yyyy-MM-dd")
 	private Date dob;
 
-	public long getAccNum() {
+	public String getAccNum() {
 		return accNum;
 	}
 
-	public void setAccNum(long accNum) {
+	public void setAccNum(String accNum) {
 		this.accNum = accNum;
 	}
 
@@ -43,7 +46,10 @@ public class VerificationDetails {
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "VerificationDetails [accNum=" + accNum + ", maiden=" + maiden + ", ssn=" + ssn + ", dob=" + dob + "]";
+	}
 	
 }

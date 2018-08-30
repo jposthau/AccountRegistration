@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div>
-        <form style="margin-left: 100; margin-top: 50;" action="" name="verifyForm" id="verifyForm" method="post">
+        <form style="margin-left: 100; margin-top: 50;" action="#" th:action="@{/verification}" th:object="${client}" name="verifyForm" id="verifyForm" method="post">
         	<h1 class="header2" style="text-align: left;">Enter Account Information</h1>
         	<hr>
         	<div class="form-group">
@@ -15,7 +15,7 @@
         			Please enter your Rockstar
         			Bank Account Number
         		</label>
-				<input class="textbox form-input" id="accNum" type="text" style="margin-left: 40" placeholder="e.g. 1234567890123456" autofocus/>
+				<input class="textbox form-input" id="accNum" th:field="*{accNum}" type="text" style="margin-left: 40" placeholder="e.g. 1234567890123456" autofocus/>
         	</div>
         	<hr>
 			<h1 class="header2" style="text-align: left;">Personal Security Information</h1>
@@ -29,32 +29,25 @@
 				<label>-</label>
 				<input id="ssn3" name="ssn3" class="ssn" type="password" style="width: 60;" placeholder="XXXX" maxlength="4" onKeyup="generateSSN()"  />
 			</div>
-			<input id="ssn" class="textbox" hidden="true" />
+			<input id="ssn" th:field="*{ssn}" class="textbox" hidden="true" />
 			
 			<div class="form-group">
 				<label style="font-size: 12; display: inline-block;">
         			Date of Birth
         		</label>
-				<input id="dob" class="textbox" type="date" style="margin-left: 154" />
+				<input id="dob" th:field="*{dob}" class="textbox" type="date" style="margin-left: 154" />
 			</div>
 			
 			<div class="form-group">
 				<label style="font-size: 12; display: inline-block;">
 	        		Mother's Maiden Name
 	        	</label>
-				<input id="motherMName" class="textbox" type="text" style="margin-left: 96" />
+				<input id="motherMName" th:field="*{maiden}" class="textbox" type="text" style="margin-left: 96" />
 			</div>
 			<hr>
-			<input class="btn btn-submit" onclick="submitForm()" type="submit" value="Continue" />
+			<input class="btn btn-submit" type="submit" value="Continue" />
 			<a class="link" onclick="return confirm('Are you sure you would like to cancel? All data will be lost.')" href="/">Cancel</a>
         </form>      
-        
-        <script type="text/javascript">
-        	function submitForm() {
-        		var url = "http://localhost:8082/verify/account/" + document.getElementById("accNum").value;
-        		document.getElementById("verifyForm").setAttribute("action", url);
-        	}
-        </script>
           
     </div>
 </body>
