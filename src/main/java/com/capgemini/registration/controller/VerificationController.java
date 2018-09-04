@@ -1,16 +1,19 @@
 package com.capgemini.registration.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.capgemini.registration.model.VerificationDetails;
 
 @Controller
+//@SessionAttributes("client")
 public class VerificationController {
 	
 	@GetMapping("/verification")
@@ -20,7 +23,13 @@ public class VerificationController {
 	}
 	
 	@PostMapping("/verification")
-	public String verify(VerificationDetails client) {
+	//public String verify(VerificationDetails client) {	
+	public String verify(@Valid @ModelAttribute("client") VerificationDetails client, BindingResult bindingResult, Model model ) {	
+		model.addAttribute("client", client);
+		
+		if(bindingResult.hasErrors()) {
+			return "verification";
+		}
 		String accNum = client.getAccNum();
 		
 		String url = "http://localhost:8082/verify/account/"+accNum;
@@ -29,11 +38,27 @@ public class VerificationController {
 	     
 	    System.out.println("Server: "+server.toString());
 	    System.out.println("Client: "+client.toString());
-	    if(server.getSsn() == null) {
-	    	System.out.println("Invalid Acc Num!");
-	    }
 	    
-	    return "index";
+	 
+	    if(server.getAccNum() == null ) {
+	    	System.out.println("Invalid Account Number!");
+	    	return "verification";
+	    	
+	    }else if(!client.getSsn().equals(server.getSsn())) {
+	    	System.out.println("Invalid SSN!");
+	    	return "verification";
+	    
+	    }else if(!client.getDob().equals(server.getDob())) {
+	       	System.out.println("Invalid DOB");
+	    	return "verification";
+	    	
+		}else if(!client.getMaiden().equals(server.getMaiden())){
+			System.out.println("Invalid Maiden Name");
+			return "verification";
+		}
+	    
+	    model.addAttribute("message", "All details are correct. Please proceed to next page.");
+	    
+	    return "verification";
 	}
-	
 }

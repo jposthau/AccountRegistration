@@ -1,18 +1,31 @@
 package com.capgemini.registration.model;
 
+import java.io.Serializable;
 import java.util.Date;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class VerificationDetails {
+import com.capgemini.date.CustomDateDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+public class VerificationDetails implements Serializable{
 	
+	@NotBlank(message="Please enter Acccount Number.")
 	private String accNum;
 	
+	@NotBlank(message="Please enter Maiden Name.")
 	private String maiden;
 	
+	@NotNull(message="Please enter SSN number.")
+	@NotBlank(message="Please enter SSN number.")
 	private String ssn;
 	
+	@NotNull(message="Please enter DOB.")
 	@DateTimeFormat(pattern ="yyyy-MM-dd")
+	@JsonDeserialize(using = CustomDateDeserializer.class)
 	private Date dob;
 
 	public String getAccNum() {
