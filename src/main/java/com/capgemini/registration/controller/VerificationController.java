@@ -56,9 +56,9 @@ public class VerificationController {
 	    	registration = regDetServiceImpl.getRegDetailsByCustId(server.getCustomerId());
 	    } catch(Exception e) {
 	    	registration = new RegistrationDetails();
+	    	registration.setCustomerId(server.getCustomerId());
 	    }
 	    RegistrationLog log = new RegistrationLog();
-	    registration.setCustomerId(server.getCustomerId());
 	 
 	    if(server.getSsn() == null ) {
 	    	System.out.println("Invalid Account Number");
@@ -87,20 +87,21 @@ public class VerificationController {
 			}
 	    }
 	    
-	    log.setRegistrationId(registration.getRegistrationId());
-	    
 	    if(invalid == true) {
 	    	log.setAttempt(incorrect);
 	    	log.setStatus("fail");
 	    	registration.setAttempts(registration.getAttempts() + 1);
-	    	regLogServiceImpl.saveRegLog(log);
 	    	regDetServiceImpl.saveRegDetails(registration);
+	    	log.setRegistrationId(registration.getRegistrationId());
+	    	regLogServiceImpl.saveRegLog(log);
 	    	if(registration.getAttempts() >= 6)
 	    		return "locked";
 	    	return "verification";
 	    }
 	    
 	    log.setStatus("pass");
+	    regDetServiceImpl.saveRegDetails(registration);
+	    log.setRegistrationId(registration.getRegistrationId());
 	    regLogServiceImpl.saveRegLog(log);
 	    return "credentials";
 	}
