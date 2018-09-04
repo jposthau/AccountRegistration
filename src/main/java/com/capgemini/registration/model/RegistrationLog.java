@@ -1,6 +1,7 @@
 package com.capgemini.registration.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -22,10 +21,10 @@ public class RegistrationLog {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "log_id")
-	@Size(max = 6)
-	private Long customerId;
+	private Long logId;
 
 	@Column(name="registration_id")
+	@Size(max = 6)
 	private int registrationId;
 
 	@Column(name="attempt")
@@ -33,17 +32,18 @@ public class RegistrationLog {
 
 	@Column(name="status")
 	private String status;
+	
+	private Date date = new Date();
 
 	@Column(name="timestamp")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date timestamp;
+	private Timestamp timestamp = new Timestamp(date.getTime());
 
 	public String getAttempt() {
 		return attempt;
 	}
 
-	public Long getCustomerId() {
-		return customerId;
+	public Long getLogId() {
+		return logId;
 	}
 
 	public int getRegistrationId() {
@@ -62,8 +62,8 @@ public class RegistrationLog {
 		this.attempt = attempt;
 	}
 
-	public void setCustomerId(Long customerId) {
-		this.customerId = customerId;
+	public void setLogId(Long logId) {
+		this.logId = logId;
 	}
 
 	public void setRegistrationId(int registrationId) {
@@ -74,13 +74,13 @@ public class RegistrationLog {
 		this.status = status;
 	}
 
-	public void setTimestamp(Date timestamp) {
+	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
 	}
 
 	@Override
 	public String toString() {
-		return "RegistrationLog [customerId=" + customerId + ", registrationId=" + registrationId + ", attempt="
+		return "RegistrationLog [logId=" + logId + ", registrationId=" + registrationId + ", attempt="
 				+ attempt + ", status=" + status + ", timestamp=" + timestamp + "]";
 	}
 }

@@ -2,6 +2,7 @@ package com.capgemini.registration.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,11 +11,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 
+import com.capgemini.registration.model.RegistrationDetails;
+import com.capgemini.registration.model.RegistrationLog;
 import com.capgemini.registration.model.VerificationDetails;
+import com.capgemini.registration.service.RegDetailsServiceImpl;
+import com.capgemini.registration.service.RegLogServiceImpl;
 
 @Controller
 //@SessionAttributes("client")
 public class VerificationController {
+	
+	@Autowired
+	RegLogServiceImpl regLogServiceImpl;
+	
+	@Autowired
+	RegDetailsServiceImpl regDetServiceImpl;
 	
 	@GetMapping("/verification")
 	public String getVerification(Model model) {
@@ -39,32 +50,53 @@ public class VerificationController {
 	    System.out.println("Client: "+client.toString());
 	    
 	    boolean invalid = false;
+	    String incorrect = "";
+	    RegistrationLog log = new RegistrationLog();
+	    RegistrationDetails registration = new RegistrationDetails();
+	    registration.setCustomerId(server.getCustomerId());
 	 
 	    if(server.getSsn() == null ) {
 	    	System.out.println("Invalid Account Number");
 	    	model.addAttribute("accNumError", "Invalid Account Number");
 	    	invalid = true;
+	    	incorrect = "ACCNUM";
 	    }
 	    else {
 		    if(!client.getSsn().equals(server.getSsn())) {
 		    	System.out.println("Invalid SSN");
 		    	model.addAttribute("ssnError", "Invalid SSN");
 		    	invalid = true;
+		    	incorrect += "SSN ";
 		    }
 		    if(!client.getDob().equals(server.getDob())) {
 		       	System.out.println("Invalid DOB");
 		       	model.addAttribute("dobError", "Invalid DOB");
 		       	invalid = true;
+		       	incorrect += "DOB ";
 			}
 		    if(!client.getMaiden().equals(server.getMaiden())){
 				System.out.println("Invalid Maiden Name");
 				model.addAttribute("maidenError", "Invalid Maiden Name");
 				invalid = true;
+				incorrect += "MAIDEN ";
 			}
 	    }
-	    if(invalid == true)
-	    	return "verification";
 	    
+	    log.setRegistrationId(registration.getRegistrationId());
+	    
+	    if(invalid == true) {
+	    	log.setAttempt(incorrect);
+	    	log.setStatus("fail");
+	    	registration.setAttempts(registration.getAttempts() + 1);
+	    	regLogServiceImpl.saveRegLog(log);
+	    	regDetServiceImpl.saveRegDetails(registration);
+	    	if(registration.getAttempts() >= 6)
+	    		return "locked";
+	    	return "verification";
+	    }
+	    
+	    log.setStatus("pass");
+	    regLogServiceImpl.saveRegLog(log);
 	    return "credentials";
 	}
 }

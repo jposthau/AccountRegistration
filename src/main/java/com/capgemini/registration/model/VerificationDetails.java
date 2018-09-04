@@ -16,6 +16,8 @@ public class VerificationDetails implements Serializable{
 	@NotBlank(message="Please enter Acccount Number.")
 	private String accNum;
 	
+	private Long customerId;
+	
 	@NotBlank(message="Please enter Maiden Name.")
 	private String maiden;
 	
@@ -58,6 +60,14 @@ public class VerificationDetails implements Serializable{
 
 	public void setDob(Date dob) {
 		this.dob = dob;
+	}
+	
+	public Long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
 	}
 
 	@Override
