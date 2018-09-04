@@ -16,7 +16,7 @@
         			Bank Account Number
         		</label>
 				<input class="textbox form-input" id="accNum" th:field="*{accNum}" type="text" style="margin-left: 40" placeholder="e.g. 1234567890123456" autofocus/>
-				<span th:if="${#fields.hasErrors('accNum')}" class="valid-error" th:errors="*{accNum}"></span>
+				<div th:text="${accNumError}" class="valid-error"></div>
         	</div>
         	<hr>
 			<h1 class="header2" style="text-align: left;">Personal Security Information</h1>
@@ -24,12 +24,12 @@
         		Social Security Number
         	</label>
 			<div class="ssn form-group" style="margin-left: 91">
-				<input id="ssn1" name="ssn1" class="ssn" type="password" style="width: 45;" placeholder="XXX" maxlength="3" onKeyup="autotab(this, document.verifyForm.ssn2); generateSSN()" />
+				<input id="ssn1" name="ssn1" class="ssn" type="password" style="width: 45;" placeholder="XXX" maxlength="3" onKeyup="autotab(this, document.verifyForm.ssn2); generateSSN()" required/>
 				<label>-</label>
-				<input id="ssn2" name="ssn2" class="ssn" type="password" style="width: 30;" placeholder="XX" maxlength="2" onKeyup="autotab(this, document.verifyForm.ssn3); generateSSN()" />
+				<input id="ssn2" name="ssn2" class="ssn" type="password" style="width: 30;" placeholder="XX" maxlength="2" onKeyup="autotab(this, document.verifyForm.ssn3); generateSSN()" required/>
 				<label>-</label>
-				<input id="ssn3" name="ssn3" class="ssn" type="password" style="width: 60;" placeholder="XXXX" maxlength="4" onKeyup="generateSSN()"  />
-				<span th:if="${#fields.hasErrors('ssn')}" class="valid-error" th:errors="*{ssn}"></span>
+				<input id="ssn3" name="ssn3" class="ssn" type="password" style="width: 60;" placeholder="XXXX" maxlength="4" onKeyup="generateSSN()" required/>
+				<div th:text="${ssnError}" class="valid-error"></div>
 			</div>
 			
 			<input id="ssn" th:field="*{ssn}" class="textbox" hidden="true" />
@@ -39,7 +39,7 @@
         			Date of Birth
         		</label>
 				<div><input id="dob" th:field="*{dob}" class="textbox" type="date" style="margin-left: 230" />
-				<span th:if="${#fields.hasErrors('dob')}" class="valid-error" th:errors="*{dob}"></span></div>
+				<div th:text="${dobError}" class="valid-error"></div>
 			</div>
 			
 			<div class="form-group">
@@ -47,15 +47,12 @@
 	        		Mother's Maiden Name
 	        	</label>
 				<div><input id="motherMName" th:field="*{maiden}" class="textbox" type="text" style="margin-left: 230" />
-				<span th:if="${#fields.hasErrors('maiden')}" class="valid-error" th:errors="*{maiden}"></span></div>
+				<div th:text="${maidenError}" class="valid-error"></div>
 			</div>
 			
 			<hr>
 			<input class="btn btn-submit" type="submit" value="Continue" />
 			<a class="link" onclick="return confirm('Are you sure you would like to cancel? All data will be lost.')" href="/">Cancel</a>
-			<br>
-			<br>
-			<div th:text="${message}" style = "color:red; font-size: 12; font-weight: bold; font-size: 25;"></div>
         </form>      
           
     </div>

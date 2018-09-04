@@ -23,7 +23,6 @@ public class VerificationController {
 	}
 	
 	@PostMapping("/verification")
-	//public String verify(VerificationDetails client) {	
 	public String verify(@Valid @ModelAttribute("client") VerificationDetails client, BindingResult bindingResult, Model model ) {	
 		model.addAttribute("client", client);
 		
@@ -39,26 +38,33 @@ public class VerificationController {
 	    System.out.println("Server: "+server.toString());
 	    System.out.println("Client: "+client.toString());
 	    
+	    boolean invalid = false;
 	 
-	    if(server.getAccNum() == null ) {
-	    	System.out.println("Invalid Account Number!");
-	    	return "verification";
-	    	
-	    }else if(!client.getSsn().equals(server.getSsn())) {
-	    	System.out.println("Invalid SSN!");
+	    if(server.getSsn() == null ) {
+	    	System.out.println("Invalid Account Number");
+	    	model.addAttribute("accNumError", "Invalid Account Number");
+	    	invalid = true;
+	    }
+	    else {
+		    if(!client.getSsn().equals(server.getSsn())) {
+		    	System.out.println("Invalid SSN");
+		    	model.addAttribute("ssnError", "Invalid SSN");
+		    	invalid = true;
+		    }
+		    if(!client.getDob().equals(server.getDob())) {
+		       	System.out.println("Invalid DOB");
+		       	model.addAttribute("dobError", "Invalid DOB");
+		       	invalid = true;
+			}
+		    if(!client.getMaiden().equals(server.getMaiden())){
+				System.out.println("Invalid Maiden Name");
+				model.addAttribute("maidenError", "Invalid Maiden Name");
+				invalid = true;
+			}
+	    }
+	    if(invalid == true)
 	    	return "verification";
 	    
-	    }else if(!client.getDob().equals(server.getDob())) {
-	       	System.out.println("Invalid DOB");
-	    	return "verification";
-	    	
-		}else if(!client.getMaiden().equals(server.getMaiden())){
-			System.out.println("Invalid Maiden Name");
-			return "verification";
-		}
-	    
-	    model.addAttribute("message", "All details are correct. Please proceed to next page.");
-	    
-	    return "verification";
+	    return "credentials";
 	}
 }
