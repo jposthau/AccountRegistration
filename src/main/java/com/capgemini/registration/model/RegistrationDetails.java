@@ -43,7 +43,7 @@ public class RegistrationDetails {
 		return attempts;
 	}
 
-	public int getCustomerId() {
+	public Long getCustomerId() {
 		return customerId;
 	}
 
@@ -71,7 +71,7 @@ public class RegistrationDetails {
 		this.attempts = attempts;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(Long customerId) {
 		this.customerId = customerId;
 	}
 
