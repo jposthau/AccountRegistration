@@ -1,6 +1,5 @@
 package com.capgemini.registration.model;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -24,7 +22,6 @@ public class RegistrationLog {
 	private Long logId;
 
 	@Column(name="registration_id")
-	@Size(max = 6)
 	private int registrationId;
 
 	@Column(name="attempt")
@@ -33,10 +30,8 @@ public class RegistrationLog {
 	@Column(name="status")
 	private String status;
 	
-	private Date date = new Date();
-
 	@Column(name="timestamp")
-	private Timestamp timestamp = new Timestamp(date.getTime());
+	private Date timestamp = new Date();
 
 	public String getAttempt() {
 		return attempt;
@@ -74,7 +69,7 @@ public class RegistrationLog {
 		this.status = status;
 	}
 
-	public void setTimestamp(Timestamp timestamp) {
+	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
 

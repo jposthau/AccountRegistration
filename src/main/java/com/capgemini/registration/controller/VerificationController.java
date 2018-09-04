@@ -51,8 +51,13 @@ public class VerificationController {
 	    
 	    boolean invalid = false;
 	    String incorrect = "";
+	    RegistrationDetails registration;
+	    try {
+	    	registration = regDetServiceImpl.getRegDetailsByCustId(server.getCustomerId());
+	    } catch(Exception e) {
+	    	registration = new RegistrationDetails();
+	    }
 	    RegistrationLog log = new RegistrationLog();
-	    RegistrationDetails registration = new RegistrationDetails();
 	    registration.setCustomerId(server.getCustomerId());
 	 
 	    if(server.getSsn() == null ) {
