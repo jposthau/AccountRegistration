@@ -7,21 +7,20 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Controller
-public class CredentialsController implements WebMvcConfigurer {
+public class TermsController implements WebMvcConfigurer {
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/terms").setViewName("terms");
+		registry.addViewController("/RegistrationSuccessful").setViewName("RegistrationSuccessful");
 	}
 	
-	@GetMapping("/credentials")
-	public String getCredentials() {
-		return "credentials";
+	@GetMapping("/terms")
+	public String getTerms() {
+		return "terms";
 	}
 	
-	@PostMapping("/credentials")
+	@PostMapping("/terms")
 	public String verify() {	
-		return "redirect:/terms";
+		return "redirect:/RegistrationSuccessful";
 	}
-
 }
