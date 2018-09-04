@@ -25,8 +25,6 @@ public class CredentialsController {
 		
 		@PostMapping("credentials")
 		public String verify(@Valid @ModelAttribute("client") CredentialsDetails client, BindingResult bindingResult, Model model ) {	
-	
-			
 			
 			
 			return "credentials";
