@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -27,8 +29,12 @@ public class RegistrationDetails {
 	@Column(name = "username")
 	private String username;
 
+	@NotNull(message="Confirm Password")
 	@Column(name = "password")
 	private String password;
+	
+	@Transient @NotNull(message="Confirm Password")
+	private String confirmPassword;
 
 	@Column(name = "status")
 	private String status;
@@ -79,6 +85,14 @@ public class RegistrationDetails {
 		this.password = password;
 	}
 
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+	
 	public void setRegistrationId(int registrationId) {
 		this.registrationId = registrationId;
 	}

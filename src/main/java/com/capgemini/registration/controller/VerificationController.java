@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.capgemini.registration.model.RegistrationDetails;
 import com.capgemini.registration.model.RegistrationLog;
@@ -20,6 +22,7 @@ import com.capgemini.registration.service.RegLogServiceImpl;
 @Controller
 //@SessionAttributes("client")
 public class VerificationController {
+
 	
 	@Autowired
 	RegLogServiceImpl regLogServiceImpl;
@@ -103,6 +106,7 @@ public class VerificationController {
 	    regDetServiceImpl.saveRegDetails(registration);
 	    log.setRegistrationId(registration.getRegistrationId());
 	    regLogServiceImpl.saveRegLog(log);
+	    model.addAttribute("credentials", new RegistrationDetails());
 	    return "credentials";
 	}
 }
