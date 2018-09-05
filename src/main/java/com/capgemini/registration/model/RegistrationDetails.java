@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -29,11 +29,11 @@ public class RegistrationDetails {
 	@Column(name = "username")
 	private String username;
 
-	@NotNull(message="Confirm Password")
+	@Size(min=8, max=20, message="Must be between 8-20 characters")
 	@Column(name = "password")
 	private String password;
 	
-	@Transient @NotNull(message="Confirm Password")
+	@Transient
 	private String confirmPassword;
 
 	@Column(name = "status")
