@@ -1,13 +1,24 @@
 package com.capgemini.registration.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.capgemini.registration.model.Credentials;
+import com.capgemini.registration.model.RegistrationDetails;
+import com.capgemini.registration.service.RegDetailsServiceImpl;
+
 @Controller
 public class TermsController implements WebMvcConfigurer {
+	
+	@Autowired
+	private RegDetailsServiceImpl regDetServiceImpl;
+	
+	@Autowired
+	private Credentials credentials;
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
@@ -20,7 +31,14 @@ public class TermsController implements WebMvcConfigurer {
 	}
 	
 	@PostMapping("/terms")
-	public String verify() {	
+	public String verify() {
+		RegistrationDetails regDetails = regDetServiceImpl.getRegDetailsByCustId(credentials.getCustomerId());
+		regDetails.setUsername(credentials.getUsername());
+		regDetails.setPassword(credentials.getPassword());
+		System.out.println(credentials.getUsername());
+		System.out.println(credentials.getPassword());
+		regDetails.setStatus("C");
+		regDetServiceImpl.saveRegDetails(regDetails);
 		return "redirect:/RegistrationSuccessful";
 	}
 }

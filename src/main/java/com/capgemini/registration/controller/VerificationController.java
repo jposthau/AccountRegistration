@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.capgemini.registration.model.Credentials;
 import com.capgemini.registration.model.RegistrationDetails;
 import com.capgemini.registration.model.RegistrationLog;
 import com.capgemini.registration.model.VerificationDetails;
@@ -18,14 +21,22 @@ import com.capgemini.registration.service.RegDetailsServiceImpl;
 import com.capgemini.registration.service.RegLogServiceImpl;
 
 @Controller
-public class VerificationController {
+public class VerificationController implements WebMvcConfigurer {
 
 	
 	@Autowired
-	RegLogServiceImpl regLogServiceImpl;
+	private RegLogServiceImpl regLogServiceImpl;
 	
 	@Autowired
-	RegDetailsServiceImpl regDetServiceImpl;
+	private RegDetailsServiceImpl regDetServiceImpl;
+	
+	@Autowired
+	private Credentials credentials;
+	
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/credentials").setViewName("credentials");
+	}
 	
 	@GetMapping("/verification")
 	public String getVerification(Model model) {
@@ -52,6 +63,7 @@ public class VerificationController {
 	    boolean invalid = false;
 	    String incorrect = "";
 	    RegistrationDetails registration;
+	    credentials.setCustomerId(server.getCustomerId());
 	    try {
 	    	registration = regDetServiceImpl.getRegDetailsByCustId(server.getCustomerId());
 	    } catch(Exception e) {
@@ -91,6 +103,8 @@ public class VerificationController {
 	    	log.setAttempt(incorrect);
 	    	log.setStatus("fail");
 	    	registration.setAttempts(registration.getAttempts() + 1);
+	    	if(registration.getAttempts() >= 6)
+	    		registration.setStatus("L");
 	    	regDetServiceImpl.saveRegDetails(registration);
 	    	log.setRegistrationId(registration.getRegistrationId());
 	    	regLogServiceImpl.saveRegLog(log);
@@ -100,10 +114,10 @@ public class VerificationController {
 	    }
 	    
 	    log.setStatus("pass");
+	    registration.setStatus("UR");
 	    regDetServiceImpl.saveRegDetails(registration);
 	    log.setRegistrationId(registration.getRegistrationId());
 	    regLogServiceImpl.saveRegLog(log);
-	    model.addAttribute("credentials", new RegistrationDetails());
-	    return "credentials";
+	    return "redirect:/credentials";
 	}
 }

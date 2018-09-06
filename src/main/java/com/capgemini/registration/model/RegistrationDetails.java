@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -29,12 +27,8 @@ public class RegistrationDetails {
 	@Column(name = "username")
 	private String username;
 
-	@Size(min=8, max=20, message="Must be between 8-20 characters")
 	@Column(name = "password")
 	private String password;
-	
-	@Transient
-	private String confirmPassword;
 
 	@Column(name = "status")
 	private String status;
@@ -84,14 +78,6 @@ public class RegistrationDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
-
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
 	
 	public void setRegistrationId(int registrationId) {
 		this.registrationId = registrationId;
@@ -111,8 +97,7 @@ public class RegistrationDetails {
 
 	@Override
 	public String toString() {
-		return "RegistrationDetails [registrationId=" + registrationId + ", customerId=" + customerId + ", username="
-				+ username + ", password=" + password + ", status=" + status + ", attempts=" + attempts + ", timestamp="
+		return "RegistrationDetails [registrationId=" + registrationId + ", customerId=" + customerId + "status=" + status + ", attempts=" + attempts + ", timestamp="
 				+ timestamp + "]";
 	}
 }
