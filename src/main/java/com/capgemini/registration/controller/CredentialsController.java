@@ -13,12 +13,16 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.capgemini.registration.model.Credentials;
+import com.capgemini.registration.model.RegistrationDetails;
+import com.capgemini.registration.service.RegDetailsService;
 
 @Controller
 public class CredentialsController implements WebMvcConfigurer {
 	
 	@Autowired
 	private Credentials credentials;
+	@Autowired
+	private RegDetailsService regDetailsService;
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
@@ -32,11 +36,14 @@ public class CredentialsController implements WebMvcConfigurer {
 	}
 	
 	@PostMapping("/credentials")
-	public String verify(@Valid @ModelAttribute ("credentials") Credentials credentials1, BindingResult bindingResult, Model model ) {	
-		
-		if(bindingResult.hasErrors()||!credentials1.getPassword().equals(credentials1.getConfirm())) {
+	public String verify(@Valid @ModelAttribute ("credentials") Credentials credentials1, BindingResult bindingResult, Model model ) {					
+		RegistrationDetails usernameExists = regDetailsService.findRegByUsername(credentials1.getUsername());
+		if(bindingResult.hasErrors()||!credentials1.getPassword().equals(credentials1.getConfirm())||usernameExists!=null) {
 			if(!credentials1.getPassword().equals(credentials1.getConfirm())) {
 				model.addAttribute("notEqual", "Passwords do not match!");
+			}
+			if(usernameExists!=null){
+				model.addAttribute("notEqual", "This username is already taken");
 			}
 			return "credentials";
 			

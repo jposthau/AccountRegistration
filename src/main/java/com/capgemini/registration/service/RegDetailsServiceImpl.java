@@ -21,4 +21,9 @@ public class RegDetailsServiceImpl implements RegDetailsService{
 	public RegistrationDetails getRegDetailsByCustId(Long custId) {
 		return regDetailsRepo.findByCustomerId(custId).get();
 	}
+	
+	@Override
+	public RegistrationDetails findRegByUsername(String username) {
+		return regDetailsRepo.findByUsername(username);
+	}
 }

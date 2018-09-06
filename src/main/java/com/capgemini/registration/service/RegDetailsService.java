@@ -7,4 +7,6 @@ public interface RegDetailsService {
 	RegistrationDetails saveRegDetails(RegistrationDetails regDetails);
 	
 	RegistrationDetails getRegDetailsByCustId(Long custId);
+	
+	RegistrationDetails findRegByUsername(String Username);
 }

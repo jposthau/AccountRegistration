@@ -10,4 +10,6 @@ public interface RegDetailsRepository extends JpaRepository<RegistrationDetails,
 	
 	public Optional<RegistrationDetails> findByCustomerId(Long id);
 	
+	public RegistrationDetails findByUsername(String username);
+	
 }
