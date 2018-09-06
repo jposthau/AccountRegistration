@@ -3,14 +3,21 @@
 	<title>Terms And Conditions</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="/css/styles.css">
+	<script type="text/javascript">
+		function popup(){
+			return confirm('Is this email correct? ' + document.getElementById('email').value);
+		}
+	</script>
 </head>
 <body>
 	<div align="center">
 		<h1 style="color: teal; font-size: 250%;">Terms And Conditions</h1>
 		<div style="width: 30%; font-size: 120%;">
 			<p>
-				<b>Last updated: 08/28/2018</b> <br> <br> Please read
-				these Terms and Conditions carefully before registering to the
+				<b>Last updated: 08/28/2018</b> 
+				<br /> 
+				<br /> 
+				Please read these Terms and Conditions carefully before registering to the
 				services provided by Rockstar Banking. Your access to and use of
 				the Service is conditioned on your acceptance of and compliance
 				with these Terms. These Terms apply to all visitors, users and
@@ -21,10 +28,14 @@
 		</div>
 		<form action="#" name="AgreeToTerms" method="post">
 			<input type="checkbox" name="IAgree" value="IAgree" required>
-			I AGREE TO THE TERMS AND CONDITIONS <br><br> Email Address:
-			<input type="email" name="email" required> 
-			<br><br> 
-			<input type="submit" value="Submit">
+			I AGREE TO THE TERMS AND CONDITIONS 
+			<br />
+			<br /> 
+			Email Address:
+			<input type="email" id ="email" name="email" required> 
+			<br />
+			<br /> 
+			<input type="submit" value="Submit" onclick="return popup()">
 		</form>
 	</div>
 </body>
