@@ -13,6 +13,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 public class VerificationDetails implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@NotBlank(message="Please enter Acccount Number.")
 	private String accNum;
 	
