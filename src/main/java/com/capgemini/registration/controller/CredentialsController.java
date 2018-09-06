@@ -40,10 +40,10 @@ public class CredentialsController implements WebMvcConfigurer {
 		RegistrationDetails usernameExists = regDetailsService.findRegByUsername(credentials1.getUsername());
 		if(bindingResult.hasErrors()||!credentials1.getPassword().equals(credentials1.getConfirm())||usernameExists!=null) {
 			if(!credentials1.getPassword().equals(credentials1.getConfirm())) {
-				model.addAttribute("notEqual", "Passwords do not match!");
+				model.addAttribute("confirmError", "Passwords do not match!");
 			}
 			if(usernameExists!=null){
-				model.addAttribute("notEqual", "This username is already taken");
+				model.addAttribute("usernameError", "This username is already taken");
 			}
 			return "credentials";
 			

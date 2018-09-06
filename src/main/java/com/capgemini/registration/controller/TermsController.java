@@ -32,11 +32,9 @@ public class TermsController implements WebMvcConfigurer {
 	
 	@PostMapping("/terms")
 	public String verify() {
-		RegistrationDetails regDetails = regDetServiceImpl.getRegDetailsByCustId(credentials.getCustomerId());
+		RegistrationDetails regDetails = regDetServiceImpl.findRegDetailsByCustId(credentials.getCustomerId()).get();
 		regDetails.setUsername(credentials.getUsername());
 		regDetails.setPassword(credentials.getPassword());
-		System.out.println(credentials.getUsername());
-		System.out.println(credentials.getPassword());
 		regDetails.setStatus("C");
 		regDetServiceImpl.saveRegDetails(regDetails);
 		return "redirect:/RegistrationSuccessful";

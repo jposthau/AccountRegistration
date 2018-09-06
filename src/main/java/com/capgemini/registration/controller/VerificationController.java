@@ -56,6 +56,11 @@ public class VerificationController implements WebMvcConfigurer {
 		String url = "http://localhost:8082/verify/account/"+accNum;
 		RestTemplate restTemplate = new RestTemplate();
 		VerificationDetails server = restTemplate.getForObject(url, VerificationDetails.class);
+		
+		if(regDetServiceImpl.findRegDetailsByCustId(server.getCustomerId()).isPresent()) {
+			model.addAttribute("accNumError", "Account Number already registered to a user");
+			return "/verification";
+		}
 	     
 	    System.out.println("Server: "+server.toString());
 	    System.out.println("Client: "+client.toString());
@@ -65,7 +70,7 @@ public class VerificationController implements WebMvcConfigurer {
 	    RegistrationDetails registration;
 	    credentials.setCustomerId(server.getCustomerId());
 	    try {
-	    	registration = regDetServiceImpl.getRegDetailsByCustId(server.getCustomerId());
+	    	registration = regDetServiceImpl.findRegDetailsByCustId(server.getCustomerId()).get();
 	    } catch(Exception e) {
 	    	registration = new RegistrationDetails();
 	    	registration.setCustomerId(server.getCustomerId());
@@ -98,7 +103,7 @@ public class VerificationController implements WebMvcConfigurer {
 				incorrect += "MAIDEN ";
 			}
 	    }
-	    
+	    	    
 	    if(invalid == true) {
 	    	log.setAttempt(incorrect);
 	    	log.setStatus("fail");

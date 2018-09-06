@@ -1,5 +1,7 @@
 package com.capgemini.registration.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,8 @@ public class RegDetailsServiceImpl implements RegDetailsService{
 	}
 
 	@Override
-	public RegistrationDetails getRegDetailsByCustId(Long custId) {
-		return regDetailsRepo.findByCustomerId(custId).get();
+	public Optional<RegistrationDetails> findRegDetailsByCustId(Long custId) {
+		return regDetailsRepo.findByCustomerId(custId);
 	}
 	
 	@Override

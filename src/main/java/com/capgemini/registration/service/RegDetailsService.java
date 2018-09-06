@@ -1,12 +1,14 @@
 package com.capgemini.registration.service;
 
+import java.util.Optional;
+
 import com.capgemini.registration.model.RegistrationDetails;
 
 public interface RegDetailsService {
 	
 	RegistrationDetails saveRegDetails(RegistrationDetails regDetails);
 	
-	RegistrationDetails getRegDetailsByCustId(Long custId);
+	Optional<RegistrationDetails> findRegDetailsByCustId(Long custId);
 	
 	RegistrationDetails findRegByUsername(String Username);
 }
