@@ -57,7 +57,7 @@ public class VerificationController implements WebMvcConfigurer {
 		RestTemplate restTemplate = new RestTemplate();
 		VerificationDetails server = restTemplate.getForObject(url, VerificationDetails.class);
 		
-		if(regDetServiceImpl.findRegDetailsByCustId(server.getCustomerId()).isPresent()) {
+		if(regDetServiceImpl.findRegDetailsByCustId(server.getCustomerId()).isPresent() && regDetServiceImpl.findRegDetailsByCustId(server.getCustomerId()).get().getUsername() != null) {
 			model.addAttribute("accNumError", "Account Number already registered to a user");
 			return "/verification";
 		}
@@ -69,13 +69,16 @@ public class VerificationController implements WebMvcConfigurer {
 	    String incorrect = "";
 	    RegistrationDetails registration;
 	    credentials.setCustomerId(server.getCustomerId());
+	    
 	    try {
 	    	registration = regDetServiceImpl.findRegDetailsByCustId(server.getCustomerId()).get();
 	    } catch(Exception e) {
 	    	registration = new RegistrationDetails();
 	    	registration.setCustomerId(server.getCustomerId());
 	    }
+	    
 	    RegistrationLog log = new RegistrationLog();
+	    log.setRegistrationId(registration.getRegistrationId());
 	 
 	    if(server.getSsn() == null ) {
 	    	System.out.println("Invalid Account Number");
@@ -103,25 +106,35 @@ public class VerificationController implements WebMvcConfigurer {
 				incorrect += "MAIDEN ";
 			}
 	    }
-	    	    
-	    if(invalid == true) {
+	    
+	    if(registration.getStatus() != null) {
+			if(registration.getStatus().equals("L"))
+	    		return "locked";
+	    }
+			
+		if(invalid == true) {
 	    	log.setAttempt(incorrect);
 	    	log.setStatus("fail");
 	    	registration.setAttempts(registration.getAttempts() + 1);
-	    	if(registration.getAttempts() >= 6)
+	    	
+	    	if(registration.getAttempts() >= 6) {
 	    		registration.setStatus("L");
-	    	regDetServiceImpl.saveRegDetails(registration);
-	    	log.setRegistrationId(registration.getRegistrationId());
-	    	regLogServiceImpl.saveRegLog(log);
-	    	if(registration.getAttempts() >= 6)
+		    	regDetServiceImpl.saveRegDetails(registration);
+		    	regLogServiceImpl.saveRegLog(log);
 	    		return "locked";
-	    	return "verification";
+	    		
+	    	} else {
+	    		registration.setStatus("UR");
+		    	regDetServiceImpl.saveRegDetails(registration);
+		    	regLogServiceImpl.saveRegLog(log);
+		    	return "verification";
+	    	}
+	    	
 	    }
 	    
 	    log.setStatus("pass");
 	    registration.setStatus("UR");
 	    regDetServiceImpl.saveRegDetails(registration);
-	    log.setRegistrationId(registration.getRegistrationId());
 	    regLogServiceImpl.saveRegLog(log);
 	    return "redirect:/credentials";
 	}
