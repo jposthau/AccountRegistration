@@ -1,5 +1,7 @@
 package com.capgemini.registration.controller;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +58,8 @@ public class VerificationController implements WebMvcConfigurer {
 		String url = "http://localhost:8082/verify/account/"+accNum;
 		RestTemplate restTemplate = new RestTemplate();
 		VerificationDetails server = restTemplate.getForObject(url, VerificationDetails.class);
-		
-		if(regDetServiceImpl.findRegDetailsByCustId(server.getCustomerId()).isPresent() && regDetServiceImpl.findRegDetailsByCustId(server.getCustomerId()).get().getUsername() != null) {
+		Optional<RegistrationDetails> optional=regDetServiceImpl.findRegDetailsByCustId(server.getCustomerId());
+		if(optional.isPresent() && optional.get().getUsername() != null) {
 			model.addAttribute("accNumError", "Account Number already registered to a user");
 			return "/verification";
 		}

@@ -1,0 +1,40 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Account Opening Demo</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/css/styles.css">
+	<script type="text/javascript" src="/js/main.js"></script>
+</head>
+<body>
+<div>
+        <form style="margin-left: 100; margin-top: 50;" name="credentials" th:action="@{/login}" th:object="${login}" id="login" method="post">
+        	<h1 class="header2" style="text-align: left;">Login</h1>
+        	
+        	<hr>
+        	<div class="form-group">	
+        		<label style="font-size: 12; float: left; width: 190;">
+        			User ID:
+        		</label>
+				<input class="textbox form-input" id="username" th:field="*{username}" type="text" style="margin-left: 40" required autofocus/>
+        	</div>
+        	
+        	<hr>
+			<div class="form-group">
+				<label style="font-size: 12; display: inline-block;">
+	        		Password: 
+	        	</label>
+				<input id="password" th:field="*{password}" class="textbox form-input" type="password" maxlength="20" style="margin-left: 160" required />
+				<span th:if="${#fields.hasErrors('password')}" class="valid-error" th:errors="*{password}"></span>				
+			</div>
+			
+			<hr>
+					
+			<input class="btn btn-submit" type="submit" value="Submit" />
+			<a class="link" onclick="return confirm('Are you sure you would like to cancel? All data will be lost.')" href="/">Cancel</a>
+        	<br>
+        	<br>
+        	<div th:text="${error}" class="valid-error"></div>
+        </form>        
+    </div>
+</body>
+</html>

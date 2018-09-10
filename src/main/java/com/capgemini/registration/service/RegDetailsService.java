@@ -2,6 +2,7 @@ package com.capgemini.registration.service;
 
 import java.util.Optional;
 
+import com.capgemini.registration.model.Login;
 import com.capgemini.registration.model.RegistrationDetails;
 
 public interface RegDetailsService {
@@ -11,4 +12,7 @@ public interface RegDetailsService {
 	Optional<RegistrationDetails> findRegDetailsByCustId(Long custId);
 	
 	RegistrationDetails findRegByUsername(String Username);
+	RegistrationDetails findByUserNameAndPassword(Login login);
+	
+	
 }

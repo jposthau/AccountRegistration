@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Success</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" href="/css/styles.css">
+	</head>
+	<body>
+	<br>
+	<br>
+		<div align="center">
+		<img src="external/user_information.png" width="40" height="40"  />
+			<p><b>Account Summary:</b></p>
+			<div align="center">
+			<div class="form-group">	
+        		<label style="font-size: 12; float: center; width: 190;">
+        			Account Number:
+        		</label> <div th:text="${accountDetails.accNumber}" class=""></div>
+        		<br>
+		<div class="form-group">	
+        		<label style="font-size: 12; float: center; width: 190;">
+        			Account Type:
+        		</label>
+				<div th:text="${accountDetails.accType}" class=""></div>
+				<br>
+		<div class="form-group">	
+        		<label style="font-size: 12; float: center; width: 190;">
+        			Balance:
+        		</label>
+				<div th:text="${accountDetails.balance}" class=""></div>
+				<br>
+		<div class="form-group">	
+        		<label style="font-size: 12; float: center; width: 190;">
+        			Customer ID:
+        		</label>
+				<div th:text="${accountDetails.customerId}" class=""></div>
+				<br>
+				<br>
+			<a class="link" href="/">Home</a>
+			<a class="link" href="/">log out</a>
+		</div>
+	</body>
+</html>
