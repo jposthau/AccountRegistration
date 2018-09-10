@@ -4,11 +4,19 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<link rel="stylesheet" href="/css/styles.css">
 	</head>
-	<body>
+	<body onload="getUrl()">
 		<div align="center">
 			<img src="external/reg_success.png" />
 			<p><b>REGISTRATION SUCCESSFUL!</b></p>
-			<a class="link" href="/">Home</a>
+			<a id="home" class="link">Home</a>
 		</div>
 	</body>
 </html>
+
+<script type="text/javascript">
+	function getUrl(){
+		var url = window.location.href;
+		url = url.substring(0, url.lastIndexOf("/")-4)+"8082";
+		document.getElementById("home").setAttribute("href", url);
+	}
+</script>
