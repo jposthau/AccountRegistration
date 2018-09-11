@@ -3,6 +3,8 @@
 package com.capgemini.registration.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -37,7 +39,8 @@ public class LoginController {
 	public String submit(@ModelAttribute("login") Login login, BindingResult bindingResult, Model model) {
 		if (login != null && login.getUsername() != null & login.getPassword() != null) {
 
-			RegistrationDetails registrationDetails = regDetServiceImpl.findByUserNameAndPassword(login);
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			RegistrationDetails registrationDetails = regDetServiceImpl.findRegByUsername(auth.getName());
 
 			if (!StringUtils.isEmpty(registrationDetails)) {
 				
@@ -55,7 +58,7 @@ public class LoginController {
 			}
 
 		} else {
-			model.addAttribute("error", "Enter User id and password");
+			model.addAttribute("error", "Enter Username and password");
 			return "login";
 		}
 	}

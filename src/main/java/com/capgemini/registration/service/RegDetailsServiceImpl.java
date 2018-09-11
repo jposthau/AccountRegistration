@@ -15,6 +15,8 @@ public class RegDetailsServiceImpl implements RegDetailsService{
 	@Autowired
 	RegDetailsRepository regDetailsRepo;
 	
+    
+	
 	@Override
 	public RegistrationDetails saveRegDetails(RegistrationDetails regDetails) {
 		return regDetailsRepo.save(regDetails);

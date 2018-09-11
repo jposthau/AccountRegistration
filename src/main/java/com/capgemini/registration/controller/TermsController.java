@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.capgemini.registration.model.Credentials;
 import com.capgemini.registration.model.RegistrationDetails;
@@ -19,6 +20,9 @@ public class TermsController implements WebMvcConfigurer {
 	
 	@Autowired
 	private RegDetailsServiceImpl regDetServiceImpl;
+	
+	@Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Autowired
 	private Credentials credentials;
@@ -38,7 +42,8 @@ public class TermsController implements WebMvcConfigurer {
 		Long custId = credentials.getCustomerId();
 		RegistrationDetails regDetails = regDetServiceImpl.findRegDetailsByCustId(custId).get();
 		regDetails.setUsername(credentials.getUsername());
-		regDetails.setPassword(credentials.getPassword());
+		regDetails.setPassword(bCryptPasswordEncoder.encode(credentials.getPassword()));
+		//regDetails.setPassword(credentials.getPassword());
 		regDetails.setStatus("C");
 		regDetServiceImpl.saveRegDetails(regDetails);
 		
