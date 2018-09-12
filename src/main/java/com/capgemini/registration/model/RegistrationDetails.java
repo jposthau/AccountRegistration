@@ -32,6 +32,9 @@ public class RegistrationDetails {
 
 	@Column(name = "status")
 	private String status;
+	
+	@Column(name = "enabled")
+	private boolean enabled = false;
 
 	@Column(name = "attempts")
 	private int attempts = 0;
@@ -95,9 +98,17 @@ public class RegistrationDetails {
 		this.username = username;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	@Override
 	public String toString() {
-		return "RegistrationDetails [registrationId=" + registrationId + ", customerId=" + customerId + "status=" + status + ", attempts=" + attempts + ", timestamp="
+		return "RegistrationDetails [registrationId=" + registrationId + ", customerId=" + customerId + "status=" + status + "enabled=" + enabled + ", attempts=" + attempts + ", timestamp="
 				+ timestamp + "]";
 	}
 }

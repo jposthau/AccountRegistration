@@ -45,6 +45,7 @@ public class TermsController implements WebMvcConfigurer {
 		regDetails.setPassword(bCryptPasswordEncoder.encode(credentials.getPassword()));
 		//regDetails.setPassword(credentials.getPassword());
 		regDetails.setStatus("C");
+		regDetails.setEnabled(true);
 		regDetServiceImpl.saveRegDetails(regDetails);
 		
 		String url = "http://localhost:8082/update/email/"+ custId + "/" + email;
