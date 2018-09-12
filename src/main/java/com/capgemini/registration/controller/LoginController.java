@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 
 import com.capgemini.accountopening.model.AccountDetails;
-import com.capgemini.accountopening.service.AccountDetailsServiceImplementation;
 import com.capgemini.registration.model.Login;
 import com.capgemini.registration.model.RegistrationDetails;
-import com.capgemini.registration.model.VerificationDetails;
 import com.capgemini.registration.service.RegDetailsServiceImpl;
 
 @Controller
