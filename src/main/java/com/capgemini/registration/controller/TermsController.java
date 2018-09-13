@@ -1,5 +1,8 @@
 package com.capgemini.registration.controller;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,8 @@ import com.capgemini.registration.model.Credentials;
 import com.capgemini.registration.model.RegistrationDetails;
 import com.capgemini.registration.model.VerificationDetails;
 import com.capgemini.registration.service.RegDetailsServiceImpl;
+import com.capgemini.registration.model.Role;
+import com.capgemini.registration.repository.RoleRepository;
 
 @Controller
 public class TermsController implements WebMvcConfigurer {
@@ -23,6 +28,9 @@ public class TermsController implements WebMvcConfigurer {
 	
 	@Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+    private RoleRepository roleRepository;
 	
 	@Autowired
 	private Credentials credentials;
@@ -45,7 +53,9 @@ public class TermsController implements WebMvcConfigurer {
 		regDetails.setPassword(bCryptPasswordEncoder.encode(credentials.getPassword()));
 		//regDetails.setPassword(credentials.getPassword());
 		regDetails.setStatus("C");
-		regDetails.setEnabled(true);
+		regDetails.setEnabled(1);
+		Role userRole = roleRepository.findByRole("ADMIN");
+        regDetails.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		regDetServiceImpl.saveRegDetails(regDetails);
 		
 		String url = "http://localhost:8082/update/email/"+ custId + "/" + email;

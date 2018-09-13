@@ -1,14 +1,20 @@
 package com.capgemini.registration.model;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.capgemini.registration.model.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -34,13 +40,17 @@ public class RegistrationDetails {
 	private String status;
 	
 	@Column(name = "enabled")
-	private boolean enabled = false;
+	private int enabled = 1;
 
 	@Column(name = "attempts")
 	private int attempts = 0;
 
 	@Column(name = "timestamp")
 	private Date timestamp = new Date();
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "registration_role", joinColumns = @JoinColumn(name = "registration_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
 
 	public int getAttempts() {
 		return attempts;
@@ -98,12 +108,20 @@ public class RegistrationDetails {
 		this.username = username;
 	}
 
-	public boolean isEnabled() {
+	public int isEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(int enabled) {
 		this.enabled = enabled;
+	}
+	
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	@Override
