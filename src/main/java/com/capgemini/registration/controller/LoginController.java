@@ -3,6 +3,7 @@
 package com.capgemini.registration.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,17 +41,9 @@ public class LoginController {
 		if (login != null && login.getUsername() != null && login.getPassword() != null) {
 
 			login.setPassword(bCryptPasswordEncoder.encode(login.getPassword()));
-		//	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		//	RegistrationDetails registrationDetails = regDetServiceImpl.findRegByUsername(login.getUsername());
 			RegistrationDetails registrationDetails = regDetServiceImpl.findByUserNameAndPassword(login);
 			if (!StringUtils.isEmpty(registrationDetails)) {
 				
-				String url = "http://localhost:8082/login/accountDetails/"+registrationDetails.getCustomerId()+"";
-				RestTemplate restTemplate = new RestTemplate();
-				AccountDetails server = restTemplate.getForObject(url, AccountDetails.class);
-
-				
-				model.addAttribute("accountDetails", server);
 				return "success";
 
 			} else {
@@ -64,5 +57,18 @@ public class LoginController {
 		}
 	}
 
-	
+	@RequestMapping(value="/success", method = RequestMethod.GET)
+	public String showAccount(Authentication authentication, Model model) {
+		
+		RegistrationDetails customerId = regDetServiceImpl.findCustIdByUsername(authentication.getName());
+		System.out.println(customerId);
+		
+		String url = "http://localhost:8082/login/accountDetails/"+customerId.getCustomerId()+"";
+		RestTemplate restTemplate = new RestTemplate();
+		AccountDetails account = restTemplate.getForObject(url, AccountDetails.class);
+
+		
+		model.addAttribute("accountDetails", account);
+		return "success";
+	}
 }

@@ -11,8 +11,9 @@ public interface RegDetailsService {
 	
 	Optional<RegistrationDetails> findRegDetailsByCustId(Long custId);
 	
-	RegistrationDetails findRegByUsername(String Username);
+	RegistrationDetails findRegByUsername(String username);
 	RegistrationDetails findByUserNameAndPassword(Login login);
 	
+	RegistrationDetails findCustIdByUsername(String username);
 	
 }

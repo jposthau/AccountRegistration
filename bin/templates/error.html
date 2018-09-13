@@ -1,24 +1,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Error Page x.x</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" href="/css/styles.css">
-<script type="text/javascript" src="/js/main.js"></script>
-</head>
+	<head>
+		<title>Error Page x.x</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" href="/css/styles.css">
+		<script type="text/javascript" src="/js/main.js"></script>
+	</head>
 
-	<body>
+	<body onload="getUrl()">
 		<div class="error-page">
 				<h1>Something went wrong! </h1>
 				<h2>Our Engineers are on it</h2>
 			  	<h1 data-h1="420">420</h1>
 	    		<p data-p="ERROR NOT FOUND">ERROR NOT FOUND</p>
-	    		<a href="/">Go Home</a>
-	    		<br>
-	    		<br>
-	    		<br>
-	    		<br>
+	    		<a id="home">Go Home</a>
+	    		<br />
+	    		<br />
+	    		<br />
+	    		<br />
 	  	</div>
-	  	
-
 	</body>
 </html>
+
+<script type="text/javascript">
+	function getUrl(){
+		var url = window.location.href;
+		url = url.substring(0, url.lastIndexOf("/")-4)+"8082";
+		document.getElementById("home").setAttribute("href", url);
+	}
+</script>
