@@ -2,16 +2,20 @@
 
 package com.capgemini.registration.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import com.capgemini.accountopening.model.AccountDetails;
@@ -30,31 +34,19 @@ public class LoginController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String init(Model model) {
+	public String init(@RequestParam(value="error", required=false) boolean error, Model model) {
 		model.addAttribute("login", new Login());
-		model.addAttribute("message", "Please Enter your login details");
+		if(error) {
+			model.addAttribute("error", "Invalid username or password!");
+		}
 		return "login";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String submit(@ModelAttribute("login") Login login, BindingResult bindingResult, Model model) {
-		if (login != null && login.getUsername() != null && login.getPassword() != null) {
-
+	public void submit(@ModelAttribute("login") Login login) {
+		
 			login.setPassword(bCryptPasswordEncoder.encode(login.getPassword()));
-			RegistrationDetails registrationDetails = regDetServiceImpl.findByUserNameAndPassword(login);
-			if (!StringUtils.isEmpty(registrationDetails)) {
-				
-				return "success";
-
-			} else {
-				model.addAttribute("error", "Username or Password is wrong. Please enter again.");
-				return "login";
-			}
-
-		} else {
-			model.addAttribute("error", "Enter Username and password");
-			return "login";
-		}
+			
 	}
 
 	@RequestMapping(value="/success", method = RequestMethod.GET)
@@ -70,5 +62,14 @@ public class LoginController {
 		
 		model.addAttribute("accountDetails", account);
 		return "success";
+	}
+	
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    if (auth != null){    
+	        new SecurityContextLogoutHandler().logout(request, response, auth);
+	    }
+	    return "redirect:/login?logout";
 	}
 }

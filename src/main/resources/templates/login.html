@@ -6,34 +6,33 @@
 	<script type="text/javascript" src="/js/main.js"></script>
 </head>
 <body onload = "getUrl()">
-<div>
+	<div>
         <form style="margin-left: 100; margin-top: 50;" name="credentials" th:action="@{/login}" th:object="${login}" id="login" method="post">
         	<h1 class="header2" style="text-align: left;">Login</h1>
         	
         	<hr>
         	<div class="form-group">	
-        		<label style="font-size: 12; float: left; width: 190;">
+        		<label class="input_label">
         			Username:
         		</label>
-				<input class="textbox form-input" id="username" th:field="*{username}" type="text" style="margin-left: 34" required autofocus/>
+				<input class="textbox form-input" id="username" th:field="*{username}" type="text" style="margin-left: 230" required autofocus/>
         	</div>
         	
         	<hr>
 			<div class="form-group">
-				<label style="font-size: 12; display: inline-block;">
+				<label class="input_label">
 	        		Password: 
 	        	</label>
-				<input id="password" th:field="*{password}" class="textbox form-input" type="password" maxlength="20" style="margin-left: 160" required />
-				<span th:if="${#fields.hasErrors('password')}" class="valid-error" th:errors="*{password}"></span>				
+				<input id="password" th:field="*{password}" class="textbox form-input" type="password" maxlength="20" style="margin-left: 230" required />
+				<div th:text="${error}" class="valid-error"></div>
 			</div>
 			
 			<hr>
 					
 			<input class="btn btn-submit" type="submit" value="Submit" />
-			<a id="cancel" class="link" onclick="return confirm('Are you sure you would like to cancel? All data will be lost.')">Cancel</a>
+			<a id="cancel" class="link" >Cancel</a>
         	<br>
         	<br>
-        	<div th:text="${error}" class="valid-error"></div>
         </form>        
     </div>
 </body>
