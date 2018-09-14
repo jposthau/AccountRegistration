@@ -17,5 +17,4 @@ public interface RegDetailsRepository extends JpaRepository<RegistrationDetails,
 	@Query("select reg from RegistrationDetails reg where reg.username=:username and reg.password=:password")
 	RegistrationDetails findByUserNameAndPassword(@Param("username") String username,@Param("password") String password);
 	
-	public RegistrationDetails findCustIdByUsername(String username);
 }

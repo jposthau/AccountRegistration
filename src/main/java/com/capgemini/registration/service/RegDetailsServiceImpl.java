@@ -37,9 +37,4 @@ public class RegDetailsServiceImpl implements RegDetailsService{
 		// TODO Auto-generated method stub
 		return regDetailsRepo.findByUserNameAndPassword(login.getUsername(), login.getPassword());
 	}
-	
-	@Override
-	public RegistrationDetails findCustIdByUsername(String username) {
-		return regDetailsRepo.findCustIdByUsername(username);
-	}
 }

@@ -14,6 +14,4 @@ public interface RegDetailsService {
 	RegistrationDetails findRegByUsername(String username);
 	RegistrationDetails findByUserNameAndPassword(Login login);
 	
-	RegistrationDetails findCustIdByUsername(String username);
-	
 }

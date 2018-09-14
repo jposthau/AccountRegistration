@@ -60,8 +60,8 @@ public class LoginController {
 	@RequestMapping(value="/success", method = RequestMethod.GET)
 	public String showAccount(Authentication authentication, Model model) {
 		
-		RegistrationDetails customerId = regDetServiceImpl.findCustIdByUsername(authentication.getName());
-		System.out.println(customerId);
+		RegistrationDetails customerId = regDetServiceImpl.findRegByUsername(authentication.getName());
+		
 		
 		String url = "http://localhost:8082/login/accountDetails/"+customerId.getCustomerId()+"";
 		RestTemplate restTemplate = new RestTemplate();
